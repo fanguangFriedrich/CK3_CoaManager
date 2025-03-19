@@ -1,0 +1,1 @@
+Style="{DynamicResource {x:Static adonisUi:Styles.AccentButtonStyle}}"

@@ -1,0 +1,9 @@
+catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message);
+    }
+    finally
+    {
+        // 5️⃣ 恢复鼠标状态
+        Mouse.OverrideCursor = null;
+    }

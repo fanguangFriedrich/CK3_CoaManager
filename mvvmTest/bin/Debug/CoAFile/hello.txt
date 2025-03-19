@@ -1,0 +1,35 @@
+private void PasteImage()
+{
+    try
+    {
+        if (!Clipboard.ContainsImage())
+        {
+            MessageBox.Show("剪贴板中没有图像数据");
+            return;
+        }
+
+        BitmapSource image = Clipboard.GetImage();
+        if (image == null)
+        {
+            throw new Exception("无法获取剪贴板图像数据");
+        }
+
+        if (SelectCoA == null)
+        {
+            MessageBox.Show("请先选择 CoA");
+            return;
+        }
+
+        string imageDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+        Directory.CreateDirectory(imageDir);
+        string savedImagePath = Path.Combine(imageDir, $"{SelectCoA.Name}.png");
+
+        SaveImageAsPng(image, savedImagePath);
+
+        MessageBox.Show($"图像已保存到: {savedImagePath}");
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"粘贴图像失败: {ex.Message}");
+    }
+}

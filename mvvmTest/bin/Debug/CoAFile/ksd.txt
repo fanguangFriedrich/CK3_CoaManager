@@ -1,0 +1,22 @@
+public void LoadPieChartData(IEnumerable<CoAViewModel> coAs)
+    {
+        // 清空旧数据
+        PieSeriesCollection.Clear();
+
+        // 按 Culture 进行分组统计
+        var groupedData = coAs
+            .GroupBy(coa => coa.Culture) // 根据 Culture 分组
+            .Select(group => new { Culture = group.Key, Count = group.Count() }) // 统计数量
+            .ToList();
+
+        // 将数据添加到 SeriesCollection
+        foreach (var data in groupedData)
+        {
+            PieSeriesCollection.Add(new PieSeries
+            {
+                Title = data.Culture.ToString(), // 分组名称
+                Values = new ChartValues<int> { data.Count }, // 统计的数量
+                DataLabels = true // 显示标签
+            });
+        }
+    }
